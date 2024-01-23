@@ -11,7 +11,7 @@
 {text}{phang2}{cmd:eventbaseline}, [{bf:pre}(#) {bf:post}(#) {bf:baseline}({it:string}) {bf:graph} {bf:generate}({it:name})]{p_end}
 
 
-{pstd}{cmd:eventbaseline} transforms the coefficients estimated by {help :} into a correct event study relative to a baseline. The reported coefficients are the average treatment effects on the treated (ATT) for each period relative to the baseline. The baseline can be either a period before the treatment or the average of the pre-treatment periods.{p_end}
+{pstd}{cmd:eventbaseline} transforms the coefficients estimated by {help xthdidregress:} into a correct event study relative to a baseline. The reported coefficients are the average treatment effects on the treated (ATT) for each period relative to the baseline. The baseline can be either a period before the treatment or the average of the pre-treatment periods.{p_end}
 
 {pstd}The package can be installed with{p_end}
 
