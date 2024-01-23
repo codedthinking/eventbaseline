@@ -11,15 +11,15 @@
 {text}{phang2}{cmd:eventbaseline}, [{bf:pre}(#) {bf:post}(#) {bf:baseline}({it:string}) {bf:graph} {bf:generate}({it:name})]{p_end}
 
 
-{pstd}{cmd:eventbaseline} transforms the coefficients estimated by {cmd:xthdidregress} into a correct event study relative to a baseline. The reported coefficients are the average treatment effects on the treated (ATT) for each period relative to the baseline. The baseline can be either a period before the treatment or the average of the pre-treatment periods.{p_end}
+{pstd}{cmd:eventbaseline} transforms the coefficients estimated by {browse "":xthdidregress} into a correct event study relative to a baseline. The reported coefficients are the average treatment effects on the treated (ATT) for each period relative to the baseline. The baseline can be either a period before the treatment or the average of the pre-treatment periods.{p_end}
 
 {pstd}The package can be installed with{p_end}
 
-{phang2}{cmd}. net install eventbaseline, from(https://raw.githubusercontent.com/codedthinking/eventbaseline/main/)
+{p 8 16 2}{cmd:net install eventbaseline, from(https://raw.githubusercontent.com/codedthinking/eventbaseline/main/)}
 
 {pstd}If you require a specific version, use{p_end}
 
-{phang2}{cmd}. net install eventbaseline, from(https://github.com/korenmiklos/codedthinking/eventbaseline/raw/v0.7.0/)
+{p 8 16 2}{cmd:net install eventbaseline, from(https://github.com/korenmiklos/codedthinking/eventbaseline/raw/v0.7.0/)}
 
 
 {marker options}{...}
@@ -71,7 +71,7 @@
 
 {pstd}See {cmd:example.do} and {cmd:example.log} for a full example.{p_end}
 
-{phang2}{cmd}. . use "df.dta"
+{p 8 16 2}{cmd:. use "df.dta"
 . replace t = t + 100
 . xtset i t
 . xthdidregress ra (y) (d), group(i)
@@ -101,11 +101,11 @@ Event study relative to -1               Number of obs = 1,850
            3 |   1.865648   .2840544     6.57   0.000     1.308911    2.422384
            4 |   2.591579   .2831633     9.15   0.000     2.036589    3.146569
            5 |   2.923434   .2730864    10.71   0.000     2.388195    3.458674
-------------------------------------------------------------------------------
+------------------------------------------------------------------------------}
 
 
 
-{phang2}{cmd}. . xthdidregress ra (y) (d), group(i)
+{p 8 16 2}{cmd:. xthdidregress ra (y) (d), group(i)
 note: variable _did_cohort, containing cohort indicators formed by treatment
       variable d and group variable i, was added to the dataset.
 
@@ -119,7 +119,7 @@ Event study relative to atet             Number of obs = 1,850
            y |       ATET   Std. err.      z    P>|z|     [95% conf. interval]
 -------------+----------------------------------------------------------------
         ATET |   2.835658   .1134013    25.01   0.000     2.613396     3.05792
-------------------------------------------------------------------------------
+------------------------------------------------------------------------------}
 
 
 {marker authors}{...}

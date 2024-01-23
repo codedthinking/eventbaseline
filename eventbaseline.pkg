@@ -22,6 +22,6 @@ f eventbaseline.pkg
 f eventbaseline.ado
 f eventbaseline.sthlp
 f df.dta
-f example.do
+f eventbaseline.do
 f eventstudy_kink.png
 f eventstudy_correct.png
