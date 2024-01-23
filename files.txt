@@ -3,6 +3,6 @@ eventbaseline.pkg
 eventbaseline.ado
 eventbaseline.sthlp
 df.dta
-example.do
+eventbaseline.do
 eventstudy_kink.png
 eventstudy_correct.png

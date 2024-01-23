@@ -3,7 +3,7 @@ TARGET := eventbaseline.zip
 
 .PHONY: tag
 
-$(TARGET): $(FILES) tag
+$(TARGET): $(FILES)
 	zip $(TARGET) $(FILES)
 tag:
 	$(eval VERSION=$(shell grep 'version:' README.md | cut -d ' ' -f 2 | sed 's/^/v/'))

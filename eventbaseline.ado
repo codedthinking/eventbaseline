@@ -1,4 +1,4 @@
-*! version 0.7.0 23jan2024
+*! version 0.7.1 23jan2024
 program eventbaseline, eclass
     version 18
     syntax [, pre(integer 1) post(integer 3) baseline(string) generate(string) level(real 95)] [graph]

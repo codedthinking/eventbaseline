@@ -1,7 +1,7 @@
 ---
 author: Koren, Miklós (https://koren.mk)
 date: 2024-01-23
-version: 0.7.0
+version: 0.7.1
 title: EVENTBASELINE - Correct Event Study After XTHDIDREGRESS
 description: |
     `eventbaseline` transforms the coefficients estimated by `xthdidregress` into a correct event study relative to a baseline. The reported coefficients are the average treatment effects on the treated (ATT) for each period relative to the baseline. The baseline can be either a period before the treatment or the average of the pre-treatment periods.
@@ -14,7 +14,7 @@ requires: Stata version 18
 
 - `eventbaseline`, [**pre**(#) **post**(#) **baseline**(*string*) **graph** **generate**(*name*)]
 
-`eventbaseline` transforms the coefficients estimated by `xthdidregress` into a correct event study relative to a baseline. The reported coefficients are the average treatment effects on the treated (ATT) for each period relative to the baseline. The baseline can be either a period before the treatment or the average of the pre-treatment periods.
+`eventbaseline` transforms the coefficients estimated by [xthdidregress](xthdidregress) into a correct event study relative to a baseline. The reported coefficients are the average treatment effects on the treated (ATT) for each period relative to the baseline. The baseline can be either a period before the treatment or the average of the pre-treatment periods.
 
 
 The package can be installed with
@@ -56,20 +56,26 @@ If the `generate` option is used, the returned frame contains the following vari
 The frame is `tsset` by `time`, so `tsline` can be used to plot the event study.
 
 # Examples
-See `example.do` and `example.log` for a full example.
+See `eventbaseline.do` for a full example.
 
+Setup: 
 ```
 . use "df.dta"
 . replace t = t + 100
 . xtset i t
+```
+
+Run [xthdidregress](xthdidregress) first:
+```
 . xthdidregress ra (y) (d), group(i)
-note: variable _did_cohort, containing cohort indicators formed by treatment
-      variable d and group variable i, was added to the dataset.
+```
 
-<output omitted>
-
+Then run `eventbaseline`:
+```
 . eventbaseline, pre(5) post(5) baseline(-1) graph
+```
 
+```
 Time variable: time, -5 to 5
         Delta: 1 unit
 
@@ -94,16 +100,13 @@ Event study relative to -1               Number of obs = 1,850
 
 ![](eventstudy_correct.png)
 
-
+To create a different table, run [xthdidregress](xthdidregress) again, followed by the new `eventbaseline` command:
 ```
 . xthdidregress ra (y) (d), group(i)
-note: variable _did_cohort, containing cohort indicators formed by treatment
-      variable d and group variable i, was added to the dataset.
-
-<output omitted>
-
 . eventbaseline, pre(5) post(5) baseline(atet)
+```
 
+```
 Event study relative to atet             Number of obs = 1,850
 
 ------------------------------------------------------------------------------
@@ -114,12 +117,11 @@ Event study relative to atet             Number of obs = 1,850
 ```
 
 
-
 # Authors
 - Miklós Koren (Central European University, https://koren.mk), *maintainer*
 
 # License and Citation
-You are free to use this package under the terms of its [license](LICENSE). If you use it, please the software package in your work:
+You are free to use this package under the terms of its [license](https://github.com/codedthinking/eventbaseline/blob/main/LICENSE). If you use it, please the software package in your work:
 
 - Koren, Miklós. 2024. "EVENTBASELINE: Correct Event Study After XTHDIDREGRESS. [software]" Available at https://github.com/codedthinking/eventbaseline.
 
