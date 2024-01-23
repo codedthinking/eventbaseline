@@ -136,9 +136,11 @@ function Strikeout(s)
 end
 
 function Link(s, src, tit)
-  return "{browse \"" .. escape(src,true) .. "\":" .. s .. "}"
-  --return "<a href='" .. escape(src,true) .. "' title='" ..
-  --       escape(tit,true) .. "'>" .. s .. "</a>"
+  if src and string.sub(src, 1, 4) == "http" then
+    return "{browse \"" .. escape(src, true) .. "\"}"
+  else
+    return "{help " .. src .. ":" .. s .. "}"
+  end
 end
 
 function Image(s, src, tit)
@@ -223,7 +225,7 @@ function CodeBlock(s, attr)
     return '<img src="data:image/png;base64,' .. png .. '"/>'
   -- otherwise treat as code (one could pipe through a highlighter)
   else
-    return "{phang2}{cmd}. " .. escape(s)
+    return "{p 8 16 2}" .. escape(s)
   end
 end
 
