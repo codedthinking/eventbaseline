@@ -11,15 +11,15 @@
 {text}{phang2}{cmd:eventbaseline}, [{bf:pre}(#) {bf:post}(#) {bf:baseline}({it:string}) {bf:graph} {bf:generate}({it:name})]{p_end}
 
 
-{pstd}{cmd:eventbaseline} transforms the coefficients estimated by {help xthdidregress:} into a correct event study relative to a baseline. The reported coefficients are the average treatment effects on the treated (ATT) for each period relative to the baseline. The baseline can be either a period before the treatment or the average of the pre-treatment periods.{p_end}
+{pstd}{cmd:eventbaseline} transforms the coefficients estimated by {help xthdidregress:xthdidregress} into a correct event study relative to a baseline. The reported coefficients are the average treatment effects on the treated (ATT) for each period relative to the baseline. The baseline can be either a period before the treatment or the average of the pre-treatment periods.{p_end}
 
 {pstd}The package can be installed with{p_end}
 
-{p 8 16 2}{cmd:net install eventbaseline, from(https://raw.githubusercontent.com/codedthinking/eventbaseline/main/)}
+{p 8 16 2}net install eventbaseline, from(https://raw.githubusercontent.com/codedthinking/eventbaseline/main/)
 
 {pstd}If you require a specific version, use{p_end}
 
-{p 8 16 2}{cmd:net install eventbaseline, from(https://github.com/korenmiklos/codedthinking/eventbaseline/raw/v0.7.0/)}
+{p 8 16 2}net install eventbaseline, from(https://github.com/korenmiklos/codedthinking/eventbaseline/raw/v0.7.0/)
 
 
 {marker options}{...}
@@ -69,20 +69,23 @@
 {marker examples}{...}
 {title:Examples}
 
-{pstd}See {cmd:example.do} and {cmd:example.log} for a full example.{p_end}
+{pstd}See {cmd:eventbaseline.do} for a full example.{p_end}
 
-{p 8 16 2}{cmd:. use "df.dta"
+{pstd}Setup:{p_end}
+
+{p 8 16 2}. use "df.dta"
 . replace t = t + 100
 . xtset i t
-. xthdidregress ra (y) (d), group(i)
-note: variable _did_cohort, containing cohort indicators formed by treatment
-      variable d and group variable i, was added to the dataset.
 
-<output omitted>
+{pstd}Run {help xthdidregress:xthdidregress} first:{p_end}
 
-. eventbaseline, pre(5) post(5) baseline(-1) graph
+{p 8 16 2}. xthdidregress ra (y) (d), group(i)
 
-Time variable: time, -5 to 5
+{pstd}Then run {cmd:eventbaseline}:{p_end}
+
+{p 8 16 2}. eventbaseline, pre(5) post(5) baseline(-1) graph
+
+{p 8 16 2}Time variable: time, -5 to 5
         Delta: 1 unit
 
 Event study relative to -1               Number of obs = 1,850
@@ -101,45 +104,42 @@ Event study relative to -1               Number of obs = 1,850
            3 |   1.865648   .2840544     6.57   0.000     1.308911    2.422384
            4 |   2.591579   .2831633     9.15   0.000     2.036589    3.146569
            5 |   2.923434   .2730864    10.71   0.000     2.388195    3.458674
-------------------------------------------------------------------------------}
+------------------------------------------------------------------------------
 
 
 
-{p 8 16 2}{cmd:. xthdidregress ra (y) (d), group(i)
-note: variable _did_cohort, containing cohort indicators formed by treatment
-      variable d and group variable i, was added to the dataset.
+{pstd}To create a different table, run {help xthdidregress:xthdidregress} again, followed by the new {cmd:eventbaseline} command:{p_end}
 
-<output omitted>
-
+{p 8 16 2}. xthdidregress ra (y) (d), group(i)
 . eventbaseline, pre(5) post(5) baseline(atet)
 
-Event study relative to atet             Number of obs = 1,850
+{p 8 16 2}Event study relative to atet             Number of obs = 1,850
 
 ------------------------------------------------------------------------------
            y |       ATET   Std. err.      z    P>|z|     [95% conf. interval]
 -------------+----------------------------------------------------------------
         ATET |   2.835658   .1134013    25.01   0.000     2.613396     3.05792
-------------------------------------------------------------------------------}
+------------------------------------------------------------------------------
 
 
 {marker authors}{...}
 {title:Authors}
 
-{text}{phang2}Miklós Koren (Central European University, {help https://koren.mk:}), {it:maintainer}{p_end}
+{text}{phang2}Miklós Koren (Central European University, {browse "https://koren.mk"}), {it:maintainer}{p_end}
 
 
 
 {marker license-and-citation}{...}
 {title:License and Citation}
 
-{pstd}You are free to use this package under the terms of its {help LICENSE:}. If you use it, please the software package in your work:{p_end}
+{pstd}You are free to use this package under the terms of its {browse "https://github.com/codedthinking/eventbaseline/blob/main/LICENSE"}. If you use it, please the software package in your work:{p_end}
 
-{text}{phang2}Koren, Miklós. 2024. "EVENTBASELINE: Correct Event Study After XTHDIDREGRESS. [software]" Available at {help https://github.com/codedthinking/eventbaseline:}.{p_end}
+{text}{phang2}Koren, Miklós. 2024. "EVENTBASELINE: Correct Event Study After XTHDIDREGRESS. [software]" Available at {browse "https://github.com/codedthinking/eventbaseline"}.{p_end}
 
 
 
 {marker references}{...}
 {title:References}
 
-{text}{phang2}Roth, Jonathan. 2024a. "Interpreting Event-Studies from Recent Difference-in-Differences Methods." Available at {help https://www.jonathandroth.com/assets/files/HetEventStudies.pdf:}. Last accessed January 23, 2024.{p_end}
-{phang2}Roth, Jonathan. 2024b. "Test Data for >Interpreting Event-Studies from Recent Difference-in-Differences Methods< [data set]." Available at {help https://github.com/jonathandroth/HetEventStudies/raw/master/output/df.dta:} Last accessed January 23, 2024.{p_end}
+{text}{phang2}Roth, Jonathan. 2024a. "Interpreting Event-Studies from Recent Difference-in-Differences Methods." Available at {browse "https://www.jonathandroth.com/assets/files/HetEventStudies.pdf"}. Last accessed January 23, 2024.{p_end}
+{phang2}Roth, Jonathan. 2024b. "Test Data for >Interpreting Event-Studies from Recent Difference-in-Differences Methods< [data set]." Available at {browse "https://github.com/jonathandroth/HetEventStudies/raw/master/output/df.dta"} Last accessed January 23, 2024.{p_end}
