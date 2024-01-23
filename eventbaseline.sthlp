@@ -11,7 +11,7 @@
 {text}{phang2}{cmd:eventbaseline}, [{bf:pre}(#) {bf:post}(#) {bf:baseline}({it:string}) {bf:graph} {bf:generate}({it:name})]{p_end}
 
 
-{pstd}{cmd:eventbaseline} transforms the coefficients estimated by {browse "":xthdidregress} into a correct event study relative to a baseline. The reported coefficients are the average treatment effects on the treated (ATT) for each period relative to the baseline. The baseline can be either a period before the treatment or the average of the pre-treatment periods.{p_end}
+{pstd}{cmd:eventbaseline} transforms the coefficients estimated by {help :} into a correct event study relative to a baseline. The reported coefficients are the average treatment effects on the treated (ATT) for each period relative to the baseline. The baseline can be either a period before the treatment or the average of the pre-treatment periods.{p_end}
 
 {pstd}The package can be installed with{p_end}
 
@@ -125,21 +125,21 @@ Event study relative to atet             Number of obs = 1,850
 {marker authors}{...}
 {title:Authors}
 
-{text}{phang2}Miklós Koren (Central European University, {browse "https://koren.mk":https://koren.mk}), {it:maintainer}{p_end}
+{text}{phang2}Miklós Koren (Central European University, {help https://koren.mk:}), {it:maintainer}{p_end}
 
 
 
 {marker license-and-citation}{...}
 {title:License and Citation}
 
-{pstd}You are free to use this package under the terms of its {browse "LICENSE":license}. If you use it, please the software package in your work:{p_end}
+{pstd}You are free to use this package under the terms of its {help LICENSE:}. If you use it, please the software package in your work:{p_end}
 
-{text}{phang2}Koren, Miklós. 2024. "EVENTBASELINE: Correct Event Study After XTHDIDREGRESS. [software]" Available at {browse "https://github.com/codedthinking/eventbaseline":https://github.com/codedthinking/eventbaseline}.{p_end}
+{text}{phang2}Koren, Miklós. 2024. "EVENTBASELINE: Correct Event Study After XTHDIDREGRESS. [software]" Available at {help https://github.com/codedthinking/eventbaseline:}.{p_end}
 
 
 
 {marker references}{...}
 {title:References}
 
-{text}{phang2}Roth, Jonathan. 2024a. "Interpreting Event-Studies from Recent Difference-in-Differences Methods." Available at {browse "https://www.jonathandroth.com/assets/files/HetEventStudies.pdf":https://www.jonathandroth.com/assets/files/HetEventStudies.pdf}. Last accessed January 23, 2024.{p_end}
-{phang2}Roth, Jonathan. 2024b. "Test Data for >Interpreting Event-Studies from Recent Difference-in-Differences Methods< [data set]." Available at {browse "https://github.com/jonathandroth/HetEventStudies/raw/master/output/df.dta":https://github.com/jonathandroth/HetEventStudies/raw/master/output/df.dta} Last accessed January 23, 2024.{p_end}
+{text}{phang2}Roth, Jonathan. 2024a. "Interpreting Event-Studies from Recent Difference-in-Differences Methods." Available at {help https://www.jonathandroth.com/assets/files/HetEventStudies.pdf:}. Last accessed January 23, 2024.{p_end}
+{phang2}Roth, Jonathan. 2024b. "Test Data for >Interpreting Event-Studies from Recent Difference-in-Differences Methods< [data set]." Available at {help https://github.com/jonathandroth/HetEventStudies/raw/master/output/df.dta:} Last accessed January 23, 2024.{p_end}
