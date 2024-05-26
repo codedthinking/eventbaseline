@@ -1,7 +1,7 @@
-*! version 0.8.0 28mar2024
+*! version 0.7.2 23jan2024
 program eventbaseline, eclass
     version 18
-    syntax [, pre(integer 1) post(integer 3) baseline(string) generate(string) level(real 95) weight(varname)] [graph]
+    syntax [, pre(integer 1) post(integer 3) baseline(string) generate(string) level(real 95)] [graph]
 	if ("`level'" == "") {
 		local level 95
 	}    
@@ -18,51 +18,7 @@ program eventbaseline, eclass
     local depvar = e(depvar)
     local cohortvar = e(cohortvar)
     local timevar = e(timevar)
-
-    * reweight cohorts if needed
-    levelsof `cohortvar' if `cohortvar' != 0, local(gs)
-    levelsof `timevar', local(ts)
-    local G : word count `gs'
-    local T : word count `ts'
-
-    tempname w bad_coef bad_Var Wcum Wsum D W0 b V Nobs coefplot tlabels
-
-    matrix `w' = J(`G', 1, .)
-    forvalues g = 1/`G' {
-        local i = `g' + 1
-        local cohort : word `g' of `gs'
-        if "`weight'" == "" {
-            matrix `w'[`g', 1] = e(cohort)[`i', 1]
-        }
-        else {
-            summarize `weight' if `cohortvar' == `cohort', meanonly
-            matrix `w'[`g', 1] = r(mean)
-        }
-    }
-
-    matrix `bad_coef' = e(b)
-    matrix `bad_Var' = e(V)
-    local GT = colsof(`bad_coef')
-
-    assert `GT' == `G' * `=`T'-1'
-    assert colsof(`bad_Var') == `GT'
-
-    matrix `Wcum' = J(`GT', `K', 0)
-    local i = 1
-    forvalues g = 1/`G' {
-        forvalues t = 2/`T' {
-            local time : word `t' of `ts'
-            local start : word `g' of `gs'
-            local e = `time' - `start'
-            if inrange(`e', -`pre', `post') {
-                matrix `Wcum'[`i', `e' + `pre' + 1] = `w'[`g', 1]
-            }
-            local i = `i' + 1
-        }
-    }
-    matrix `Wsum' = J(1, `GT', 1) * `Wcum' 
-    matrix `D' = diag(`Wsum')
-    matrix `Wcum' = `Wcum' * inv(`D')
+    tempname bad_coef bad_Var Wcum W0 b V Nobs coefplot tlabels
 
     tempvar exclude esample
     * exclude observations outside of the event window
@@ -70,6 +26,18 @@ program eventbaseline, eclass
     quietly generate `esample' = e(sample) & (`exclude' == 0)
     quietly count if `esample'
     local Nobs = r(N)
+
+    quietly estat aggregation, dynamic(-`T1'/`post') 
+    matrix `bad_coef' = r(b)
+    matrix `bad_Var' = r(V)
+
+    matrix `Wcum' = I(`K')
+    forvalues i = 1/`pre' {
+        forvalues j = 1/`i' {
+            matrix `Wcum'[`j', `i'] = -1.0
+        }
+    }
+    matrix `Wcum' = `Wcum'[1..., 1..`pre'-1], `Wcum'[1..., `pre'+1..`pre'+`post'+1]
 
     if ("`baseline'" == "average") {
         matrix `W0' = I(`K') - (J(`K', `pre', 1/`pre'), J(`K', `post'+1, 0))
@@ -88,8 +56,8 @@ program eventbaseline, eclass
             matrix `W0'[`i', `bl'] = `W0'[`i', `bl'] - 1.0
         }
     }
-    matrix `b' = `bad_coef' * `Wcum' * `W0''
-    matrix `V' = `W0' * `Wcum'' * `bad_Var' * `Wcum' * `W0''
+    matrix `b' = `bad_coef' * `Wcum'' * `W0''
+    matrix `V' = `W0' * `Wcum' * `bad_Var' * `Wcum'' * `W0''
 
     if ("`baseline'" == "atet") {
         local colnames "ATET"

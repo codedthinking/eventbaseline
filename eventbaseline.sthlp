@@ -8,7 +8,7 @@
 {marker syntax}{...}
 {title:Syntax}
 
-{text}{phang2}{cmd:eventbaseline}, [{bf:pre}(#) {bf:post}(#) {bf:baseline}({it:string}) {bf:weight}({it:varname}) {bf:graph} {bf:generate}({it:name})]{p_end}
+{text}{phang2}{cmd:eventbaseline}, [{bf:pre}(#) {bf:post}(#) {bf:baseline}({it:string}) {bf:graph} {bf:generate}({it:name})]{p_end}
 
 
 {pstd}{cmd:eventbaseline} transforms the coefficients estimated by {help xthdidregress:xthdidregress} into a correct event study relative to a baseline. The reported coefficients are the average treatment effects on the treated (ATT) for each period relative to the baseline. The baseline can be either a period before the treatment or the average of the pre-treatment periods.{p_end}
@@ -35,7 +35,6 @@
 {synopt:{bf:pre}}Number of periods before treatment to include in the estimation (default 1){p_end}
 {synopt:{bf:post}}Number of periods after treatment to include in the estimation (default 3){p_end}
 {synopt:{bf:baseline}}Either a negative number between {cmd:-pre} and {cmd:-1} or {cmd:average}, or {cmd:atet}. If {cmd:-k}, the baseline is the kth period before the treatment. If {cmd:average}, the baseline is the average of the pre-treatment periods. If {cmd:atet}, the regression table reports the average of the post-treatment periods minus the average of the pre-treatment periods. Default is {cmd:-1}.{p_end}
-{synopt:{bf:weight} (optional)}Name of the variable to use as weights in the estimation.{p_end}
 {synopt:{bf:graph} (optional)}Plot the event study graph with the default settings of {cmd:hetdid_coefplot}.{p_end}
 {synopt:{bf:generate} (optional)}Name of the frame to store the coefficients and their confidence interval.{p_end}
 {synoptline}
